@@ -213,13 +213,556 @@ fib n = fibs (0,1) !! n
 
         </section>
 
-        <setion>
-          
-        </setion>
+        <section>
+          <h1>Scala</h1>
+        </section>
         
+        <section>
+          <h2>Object-Oriented Meets Functional</h2>
+          <p>Hybrid OOP + Functional Programming JVM language.</p>
+          <p>"Seamless" Java Interop - leverage an immense repository of Java libraries</p><br/>
+          <p>Used by Twitter, LinkedIn, Intel, etc.</p>
+        </section>
+
+        <section>
+          <h2>Scala Highlights</h2>
+          <ul>
+            <li>Functional and Object Oriented</li>
+            <li>
+              Highly Scalable
+              <ul>
+                <li>Native support for threading and concurrency</li>
+                <li>Can be used as a scripting language</li>
+                <li>REPL</li>
+                <li>Staticly Typed</li>
+              </ul>
+            </li>
+            <li>Strong tuple support (limited 22 params)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Scala Highlights</h2>
+          <h3>Case Classes</h3>
+          <ul>
+            <li>Immutable by default (mutability supported)</li>
+            <li>Eliminates need for DTOs</li>
+            <li>Pattern matching</li>
+            <li>
+              Auto-generated methods
+              <ul>
+                <li>copy</li>
+                <li>Sensible toString</li>
+                <li>equals by-value (instead of by ref)</li>
+              </ul>
+            </li>
+            <li>Abstract Data Types</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Scala Highlights</h2>
+          <h3>Type System</h3>
+          <p>Extremely powerful type system; can be <b>extremely</b> complex.</p><br/>
+          <ul>
+            <li>Sipport for standard classes and abstract classes</li>
+            <li>Does not require public classes to be defined in filenames of same name</li>
+            <li>
+              No support for static methods/classes
+              <ul><li>Uses <code>object</code> modifier to declare class as a singleton</li></ul>
+            </li>
+            <li>Robust support for generics, incl. type variance</li>
+          </ul>
+
+          <br/><br/><p>This only scratches the surface of the Scala type system...</p>
+        </section>
+
+        <section>
+          <h2>Scala Highlights</h2>
+          <h3>Traits (mixins)</h3>
+          <ul>
+            <li>Like interfaces ... but not quite</li>
+            <li>Allow abstract <b>and</b> full method definitions</li>
+            <li>Cannot contain constructors</li>  
+            <li>Eliminate diamond pattern - compiler knows which method to call in case of naming conflicts</li>
+            <li><code>self</code> types - access properties of class a trait is mixed into</li>
+            <li>Can mix in multiple traits to a trait/class</li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>Scala Highlights</h2>
+            <h3>Pattern Matching - String</h3>
+            <pre><code data-trim>
+def matchIt(x: String): Boolean = {
+  x.toLowerCase match {
+    case "true" -> true
+    case "false" -> false
+    case _ -> false // Catch-all
+  }
+}
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Scala Highlights</h2>
+            <h3>Pattern Matching - Int</h3>
+            <pre><code data-trim>
+def matchIt(x: Int): String = {
+  x.toLowerCase match {
+    case 1 -> "one"
+    case 2 -> "couple"
+    case _ -> "many" // Catch-all
+  }
+}
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Scala Highlights</h2>
+            <h3>Pattern Matching - Case Class</h3>
+            <pre><code data-trim>
+trait Geometry
+case class Point(x: Int, y: Int) extends Geometry
+case class Triangle(p1: Int, p2: Int, p3: Int) extends Geometry
+case class Square(x0: Int, x1: Int, y0: Int, y1: Int) extends Geometry
+
+def matchIt(g: Geometry): Unit = g match {
+      case Point(0,0) => println(s"Origin")
+      case Point(x, y) => println(s"Point ($x, $y)")
+      case t:Triangle => println(s"Triangle: $t")
+      case Square(_, _, _, _) => println("Square")
+      case Circle(_, _, _) => println("Circle")
+  }
+
+matchIt(Point(0,0)) // Outputs: Origin
+matchIt(Point(1,2)) // Outputs: Point (1, 2)
+matchIt(Triangle(1,2,3)) // Outputs: Triangle(1,2,3)
+
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>Scala Highlights</h2>
+          <h3>Other cool features</h3>
+          <ul>
+            <li>First-class and higher order functions</li>
+            <li>Immutability by default</li>
+            <li>Extrenely powerful collections API</li>
+            <li>Built in Option and Try classes</li>
+            <li>Easy threading: actors, futures, and promises</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Scala Environment</h2>
+          <ul>
+            <li>IDE:</li>
+            <ul>
+              <li>IntelliJ IDEA (recommended)</li>
+              <li>Eclipse</li>
+              <li>Vi, Emacs, Sublime Text, etc. with Ensime (advanced)</li>
+            </ul>
+            <li>Build Environment:</li>
+            <ul>
+              <li>Simple Build Tool (SBT, native Scala)</li>
+              <li>Maven</li>
+              <li>Scala REPL Console (scripting, development)</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Hello World</h3>
+          <pre><code data-trim>
+object HelloWorld {
+  def main(args: Array[String]): Unit {
+    println("Hello World")
+  }
+}
+// scala> Hello World
+          </code></pre>
+        </section>
+
+        <section>
+        <h3>Collections - Creating Lists</h3>
+        <pre><code data-trim>
+scala> val l1 = List(1, 2, 3)
+l1: List[Int] = List(1, 2, 3)
+
+scala> val l2: List[Int] = List(1, 2, 3)
+l2: List[Int] = List(1, 2, 3)
+
+scala> val l3 = 0 :: l1
+l3: List[Int] = List(0, 1, 2, 3)
+
+scala> val l4 = List(-3, -2, -1) ::: l3
+l4: List[Int] = List(-3, -2, -1, 0, 1, 2, 3)
+        </code></pre>
+        </section>
+
+        <section>
+          <h3>Collections - Creating Maps</h3>
+          <pre><code data-trim>
+scala> val m1 = Map(1 -> "one", 2 -> "two", 3 -> "three")
+m: Map[Int,String] = Map(1 -> one, 2 -> two, 3 -> three)
+
+scala> val m2 = m1 + (4 -> "four")
+m2: Map[Int,String] = Map(1 -> one, 2 -> two, 3 -> three, 4 -> four)
+
+scala> val m3 = m1 ++ Map(4 -> "four")
+m3: Map[Int,String] = Map(1 -> one, 2 -> two, 3 -> three, 4 -> four)
+
+scala> val m4 = m3 - 1
+m4: Map[Int,String] = Map(2 -> two, 3 -> three, 4 -> four)         
+        </code></pre>
+        </section>
+
+        <section>
+        <h3>Iterating over collections</h3>
+        <pre><code data-trim>
+scala> val l1 = List(1, 2, 3, 4)
+l1: List[Int] = List(1, 2, 3, 4)
+
+scala> l1.foreach(i => print(i + " "))
+1 2 3 4
+
+scala> for (i <- l1) { print(s"$i ") }
+1 2 3 4
+
+scala> val m1 = Map(1 -> "One", 2 -> "Two", 3 -> "Three")
+m1: Map[Int,String] = Map(1 -> One, 2 -> Two, 3 -> Three)
+
+scala> m1.foreach { case (k, v) => print(s"$k: $v ; ") }
+1: One ; 2: Two ; 3: Three ;
+        </code></pre>
+        </section>
+
+        <section>
+          <h3>Mapping Collections</h3>
+          <pre><code data-trim>
+scala> val l = List(1, 2, 3)
+l: List[Int] = List(1, 2, 3)
+
+scala> val squared = l1.map(x => x*x)
+squared: List[Int] = List(1, 4, 9)
+
+scala> val filler = l1.map(x => "a" * x)
+filler: List[String] = List(a, aa, aaa)
+
+// Users from DB
+scala> val users = l.map(User.byId)
+users: List[User]
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>More Collections Operations</h3>
+          <pre><code data-trim>
+scala> val l = (1 to 10).toList
+l: List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+scala> val even = l.filter(_ % 2 == 0)
+even: List[Int] = List(2, 4, 6, 8, 10)
+
+scala> val sum = l.foldLeft(0)((acc, e) => acc + e)
+sum: Int = 55
+
+scala> l.count(_ > 5)
+res4: Int = 5
+
+scala> l.exists(_ == 5)
+res11: Boolean = true
+          </code></pre>
+        </section>
+
+        <section>
+          <section>
+            <h3>null and NullPointerException</h3>
+            <h3>Problem with null is:</h3>
+            <pre><code data-trim>
+scala> val s: String = null
+s: String = null
+
+scala> s.toUpperCase // Whoops .. BAD!
+java.lang.NullPointerException
+
+// Ugly null checks all over the code
+scala> val us = if (s != null) s.toUpperCase else null
+us: String = null
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Scala solution - Option</h3>
+            <pre><code data-trim>
+scala> val s1: Option[String] = None
+s1: Option[String] = None
+
+scala> val s2 = Option("Foo Bar")
+s2: Option[String] = Some(Foo Bar)
+
+scala> val us1 = s1.map(_.toUpperCase)
+us1: Option[String] = None
+
+scala> val us2 = s2.map(_.toUpperCase)
+us2: Option[String] = Some(FOO BAR)
+
+scala> us1.foreach(println(_)) // println never called!
+
+scala> us2.foreach(println(_))
+FOO BAR
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Option Operations</h3>
+            <pre><code data-trim>
+scala> s1.getOrElse("Empty")
+res1: String = Empty
+
+scala> s2.getOrElse("Empty")
+res2: String = Foo Bar
+
+def userById(id: Int): Option[User] = DB.userById(id)
+def profileByUId(userId: Int): Option[Profile] = DB.profileByUId(userId)
+
+val user: Option[User] = userById(1)
+
+val profile1: Option[Option[Profile]] = user.map(profileByUId(_.id))
+// Eliminate nested options:
+val profile2: Option[Profile] = user.map(profileByUId(_.id)).flatten
+val profile3: Option[Profile] = user.flatMap(profileByUId(_.id))
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Option Operations</h3>
+            <pre><code data-trim>
+scala> val e: Option[String] = None
+e: Option[String] = None
+
+scala> Option("Foo Bar").isEmpty
+res5: Boolean = false
+
+// True if Option is Empty OR predicate true
+scala> Option("Foo Bar").forall(_ == "Foo Bar")
+res8: Boolean = true
+scala> e.forall(_ == "Foo Bar")
+res10: Boolean = true
+
+// True if Option is NOT Empty AND predicate true
+scala> Option("Foo Bar").exists(_ == "Foo Bar")
+res6: Boolean = true
+scala> e.exists(_ == "Foo Bar")
+res11: Boolean = false
+
+scala> Option("Foo Bar").toList
+res7: List[String] = List(Foo Bar)
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Concurrency using Futures</h3>
+            <h3>Future Basics</h3>
+
+            <pre><code data-trim>
+  val start = System.currentTimeMillis()
+  def getLatency(r: Any): Long = System.currentTimeMillis() - start
+
+  val googleResponse: Future[Response] = WS.url("http://google.com").get()
+  val googleResponseTime: Future[Long] = googleResponse.map(getLatency)
+
+  googleResponseTime.onComplete {
+    case Success(time) => println(s"Total response time: $time")
+    case Failure(t) => println(s"Exception occured: ${t.getMessage}"")
+  }
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Concurrency using Futures</h3>
+            <h3>Future comprehension - parallel requests</h3>
+
+            <pre><code data-trim>
+val googleResponse: Future[Response] = WS.url("http://google.com").get().map(getLatency)
+val msoftResponse: Future[Response] = WS.url("http://microsoft.com").get().map(getLatency)
+val soResponse: Future[Response] = WS.url("http://stackoverflow.com").get().map(getLatency)
+
+// If any of the futures fail, minResponse will also be a failed future
+val minResponse: Future[Long] = for {
+  googleTime <- googleResponse
+  msoftTime <- msoftResponse
+  soTime <- soResponse
+} yield {
+  List(googleTime, msoftTime, soTime).min
+}
+
+// Nothing printed in case of a failure!
+minResponse.onSuccess { case time => println(s"Minimum Response Time: $time")}
+            </code></pre>
+          </section>
+
+          <section>
+            <h3>Concurrency using Futures</h3>
+            <h3>Future comprehension - sequential requests</h3>
+
+            <pre><code data-trim>
+// If any of the futures fail, minResponse will also be a failed future
+val responses: Future[List[String]] = for {
+  googleResp <- WS.url("http://google.com").get().map(toString)
+  msoftResp <- WS.url("http://microsoft.com").get().map(toString)
+  soResp <- WS.url("http://stackoverflow.com").get().map(toString)
+} yield {
+  List(googleResp, msoftResp, soResp)
+}
+
+// Nothing printed in case of a failure
+responses.onSuccess { case rs => rs.foreach(println(_))}
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h3>Quicksort - Traditional Implementation</h3>
+          <pre><code data-trim>
+def sort(xs: Array[Int]) {
+  def swap(i: Int, j: Int) {
+    val t = xs(i); xs(i) = xs(j); xs(j) = t
+  }
+
+  def sort1(l: Int, r: Int) {
+    val pivot = xs((l + r) / 2)
+    var i = l; var j = r
+    while (i <= j) {
+      while (xs(i) < pivot) i += 1
+      while (xs(j) > pivot) j -= 1
+      if (i <= j) {
+        swap(i, j)
+        i += 1
+        j -= 1
+      }
+    }
+    if (l < j) sort1(l, j)
+    if (j < r) sort1(i, r)
+  }
+
+  sort1(0, xs.length - 1)
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Quicksort - Functional Programming Implementation</h3>
+          <pre><code data-trim>
+// No state modified - array is copied, never modified!
+def sort(xs: Array[Int]): Array[Int] = {
+  if (xs.length <= 1) {
+    xs
+  } else {
+    val pivot = xs(xs.length / 2)
+    Array.concat(
+      sort(xs.filter(pivot > _)),
+      xs.filter(pivot == _),
+      sort(xs.filter(pivot < _)))
+  }
+}
+
+val rand = new scala.util.Random()
+sort(Array.fill(20)(rand.nextInt(100)))
+res5: Array[Int] = Array(5, 5, 6, 10, 10, 17, 19, 20, 29, 31, 46, 55, 66, 67, 70, 73, 79, 81, 85, 90)
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Oddities - Pattern matching generics (JVM limitation)</h3>
+
+          <pre><code data-trim>
+val l: List[Int] = List(1, 2, 3)
+
+l match {
+  case _: List[Int] => println("List of Ints")
+  case _: List[String] => println("List of Strings")
+  case _ => println("Unknown Type")
+}
+// Prints: List of Ints
+
+l match {
+  case _: List[String] => println("List of Strings")
+  case _: List[Int] => println("List of Ints")
+  case _ => println("Unknown Type")
+}
+// Prints: List of Strings
+          </code></pre>
+
+          <p>Scala <b>WILL</b> warn about above match failing due to type erasure.  Lesson - never blindly ignore compiler warnings</p>
+        </section>
+
+        <section>
+          <h3>Oddities - Function Names</h3>
+          <p>Scala allows use of most ASCII characters in method names.</p><br/>
+          <pre><code data-trim>
+// /:
+(5 /: List(1,2,3))(_ + _)
+// equal to:
+List(1,2,3).foldLeft(5)(_+_)
+
+// Valid list operators include:
+++, ++:, +:, /:, :+, ::, :::, :\
+
+// SBT: % (append version to library) %% (do not append version!)
+
+// :: is a class
+final case class ::[B](hd: B, tl: List[B]) extends List[B] with Product with Serializable
+          </code></pre>
+
+          <br/>
+          <p>Results in many frameworks with method names with no standard between them</p>
+        </section>
+
+        <section>
+        <h3>Readability</h3>
+        <p>Scala code can be too terse, to the point of not being easily readable:</p><br/>
+        <pre><code data-trim>
+def flatten[A](xs: List[List[A]]): List[A] =
+  (xs :\ (Nil: List[A])) {(x, xs) => x ::: xs}
+
+// List.++ signature:
+override def ++[B >: A, That](that: GenTraversableOnce[B])(implicit bf: CanBuildFrom[List[A], B, That]): That = {
+
+// Long chains
+val filterMapFlatmapVersion: List[String] = 
+  fileNames.filter(_.endsWith("txt")).flatMap { file =>
+    io.Source.fromFile(file).getLines().toList.map(_.trim).filter(_ == pattern)
+}
+        </code></pre>
+
+        <br/><p>Lesson - it's easy to get carried away and write unreadable code.  Do not make the same mistake.</p>
+        </section>
+
+        <section>
+          <h3>Scala at Protegra</h3>
+          <p>Currently used in production on a product (Protunity).  Our impressions so far after 3 years of use:</p>
+          <ul>
+            <li>IDEs, build environments, and language not nearly as mature as other major languages</li>
+            <li>Eliminates (almost) all boilerplate code</li>
+            <li>Write considerably fewer lines of code to accomplish same tasks</li>
+            <li>Developers should take time to lear the language before applying it</li>
+            <li>Make use of Scala/FP instead of writing Java-like code</li>
+            <li>Asynchronous code is EASY</li>
+            <li>Developers should take extra care to write readable code and follow coding standards</li>
+          </ul>
+        </section>
+
         <section>
           <h1>THE END</h1>
           <h3>BY Sasa Ivetic / protegra.com</h3>
+          <br/><br/>
+          <h3>Presentation design using reveal.js</h3>
         </section>
 
       </div>
