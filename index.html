@@ -153,6 +153,8 @@ def example(): Unit = {
           <p>Representing real world while using immutability is challenging.</p><br/>
           <p>UI code is not well suited for functional programming</p><br/>
           <p>Immutability results in object copying on every change.  In worst case, copying of entire application state may required.</p>
+
+
         </section>
 
         <section>
@@ -161,6 +163,10 @@ def example(): Unit = {
           <p>Immutability - copy objects instead of changing state</p><br/>
           <p>Recursion less efficient due to higher memory requirements</p><br/>
           <p>Recursion can lead to stack overflow unless it is tail-call optimized.</p>
+
+          <aside class="notes">
+            Recursion stack overflow example - purely functional implementation of foldRight.  The recursive call happens at the beginning of the method (vs. at the end!).  Scala implements foldRight using a reverse and foldLeft!
+          </aside>
         </section>
 
         <section>
@@ -177,6 +183,10 @@ def example(): Unit = {
           <p>Majority of functional programming users are academic</p><br/>
           <p>Far fewer resources to rely on compared to standard OOP languages.</p><br/>
           <p>Stack Overflow: C# (616k), Java (606k), JavaScript (578k), Scala (24k), Haskell (15k), Erlang (4k), functional-programming(5k)</p>
+
+          <aside class="notes">
+          Fewer real-world (especially Enterprise) examples of using functional programming.  Enterprise clients typically do not want to pay for unproven technology, even if it means missing out on "latest and greatest" improvements.
+          </aside>
         </section>
 
         <section>
@@ -265,7 +275,7 @@ fib n = fibs (0,1) !! n
           <h3>Type System</h3>
           <p>Extremely powerful type system; can be <b>extremely</b> complex.</p><br/>
           <ul>
-            <li>Sipport for standard classes and abstract classes</li>
+            <li>Support for standard classes and abstract classes</li>
             <li>Does not require public classes to be defined in filenames of same name</li>
             <li>
               No support for static methods/classes
@@ -287,6 +297,7 @@ fib n = fibs (0,1) !! n
             <li>Eliminate diamond pattern - compiler knows which method to call in case of naming conflicts</li>
             <li><code>self</code> types - access properties of class a trait is mixed into</li>
             <li>Can mix in multiple traits to a trait/class</li>
+            <li>Traits can be mixed in at variable declaration time:<ul><li><code>var p = new Person with Job</code></li></ul></li>
           </ul>
         </section>
 
@@ -329,16 +340,34 @@ case class Triangle(p1: Int, p2: Int, p3: Int) extends Geometry
 case class Square(x0: Int, x1: Int, y0: Int, y1: Int) extends Geometry
 
 def matchIt(g: Geometry): Unit = g match {
-      case Point(0,0) => println(s"Origin")
-      case Point(x, y) => println(s"Point ($x, $y)")
-      case t:Triangle => println(s"Triangle: $t")
-      case Square(_, _, _, _) => println("Square")
-      case Circle(_, _, _) => println("Circle")
-  }
+  case Point(0,0) => println(s"Origin")
+  case Point(x, y) => println(s"Point ($x, $y)")
+  case t:Triangle => println(s"Triangle: $t")
+  case Square(_, _, _, _) => println("Square")
+  case Circle(_, _, _) => println("Circle")
+}
 
-matchIt(Point(0,0)) // Outputs: Origin
-matchIt(Point(1,2)) // Outputs: Point (1, 2)
+matchIt(Point(0,0))      // Outputs: Origin
+matchIt(Point(1,2))      // Outputs: Point (1, 2)
 matchIt(Triangle(1,2,3)) // Outputs: Triangle(1,2,3)
+
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Scala Highlights</h2>
+            <h3>Pattern Matching - Lists</h3>
+            <pre><code data-trim>
+def matchIt(l: List[_]): Unit = l match {
+  case Nil => println("Empty List")
+  case x :: Nil => println("Single Element")
+  case x :: xs => println("Two or more elements")
+}
+
+matchIt(Nil)         // Outputs: Empty List
+matchIt(List())      // Outputs: Empty List
+matchIt(List(1))     // Outputs: Single Element
+matchIt(List(1,2,3)) // Outputs: Two or more elements
 
             </code></pre>
           </section>
@@ -350,7 +379,7 @@ matchIt(Triangle(1,2,3)) // Outputs: Triangle(1,2,3)
           <ul>
             <li>First-class and higher order functions</li>
             <li>Immutability by default</li>
-            <li>Extrenely powerful collections API</li>
+            <li>Extremely powerful monadic collections API</li>
             <li>Built in Option and Try classes</li>
             <li>Easy threading: actors, futures, and promises</li>
           </ul>
@@ -372,6 +401,10 @@ matchIt(Triangle(1,2,3)) // Outputs: Triangle(1,2,3)
               <li>Scala REPL Console (scripting, development)</li>
             </ul>
           </ul>
+        </section>
+
+        <section>
+          <h1>Scala Code Samples</h1>
         </section>
 
         <section>
